@@ -6,6 +6,12 @@
 
 *On-device visual inspection of railway track surface abnormalities using a quantized INT8 FOMO neural network on ESP32 microcontrollers.*
 
+<br/>
+
+<img src="assets/fomo_pipeline_animation.svg" alt="Railway FOMO ESP32 Live Animation" width="100%" />
+
+<br/>
+
 ---
 
 [![PlatformIO](https://img.shields.io/badge/PlatformIO-Core-orange?logo=platformio&logoColor=white)](https://platformio.org/)
@@ -467,6 +473,8 @@ The INT8 model preserves the FP32 model behavior for this test image.
 Railway-FOMO-ESP32/
 ├── .gitignore
 ├── README.md                             # Primary technical documentation
+├── assets/
+│   └── fomo_pipeline_animation.svg       # Animated SVG vector banner for GitHub
 ├── final_integration.py                  # PC reference integration test pipeline
 ├── verify_tflite.py                      # Root verification script for TFLite models
 ├── rail_real_test.png                    # Primary external scar test image

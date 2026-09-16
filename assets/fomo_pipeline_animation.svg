@@ -1,0 +1,235 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 360" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b0f19" />
+      <stop offset="50%" stop-color="#111827" />
+      <stop offset="100%" stop-color="#070a12" />
+    </linearGradient>
+
+    <!-- Card Gradient -->
+    <linearGradient id="card-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1f2937" stop-opacity="0.8" />
+      <stop offset="100%" stop-color="#111827" stop-opacity="0.9" />
+    </linearGradient>
+
+    <!-- Laser Scanner Gradient -->
+    <linearGradient id="laser-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ef4444" stop-opacity="0" />
+      <stop offset="50%" stop-color="#ef4444" stop-opacity="0.8" />
+      <stop offset="100%" stop-color="#ef4444" stop-opacity="0" />
+    </linearGradient>
+
+    <!-- Glowing Effects -->
+    <filter id="glow-cyan" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="4" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+    <filter id="glow-red" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <style>
+    /* CSS Animation Keyframes */
+    @keyframes scanBeam {
+      0% { transform: translateY(0px); opacity: 0.3; }
+      50% { transform: translateY(110px); opacity: 0.95; }
+      100% { transform: translateY(0px); opacity: 0.3; }
+    }
+
+    @keyframes pulseHotspot {
+      0% { fill-opacity: 0.4; r: 6; stroke-width: 1.5; }
+      50% { fill-opacity: 1; r: 8.5; stroke-width: 3; }
+      100% { fill-opacity: 0.4; r: 6; stroke-width: 1.5; }
+    }
+
+    @keyframes flowDash {
+      0% { stroke-dashoffset: 40; }
+      100% { stroke-dashoffset: 0; }
+    }
+
+    @keyframes alertBlink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    @keyframes wavePulse {
+      0% { r: 10; opacity: 0.8; }
+      100% { r: 28; opacity: 0; }
+    }
+
+    /* Applied Animation Classes */
+    .scanner-line {
+      animation: scanBeam 3.5s ease-in-out infinite;
+    }
+
+    .hotspot {
+      animation: pulseHotspot 1.2s infinite ease-in-out;
+      transform-origin: center;
+    }
+
+    .flow-line {
+      stroke-dasharray: 6 6;
+      animation: flowDash 1.2s linear infinite;
+    }
+
+    .alert-glow {
+      animation: alertBlink 1.5s ease-in-out infinite;
+    }
+
+    .ripple {
+      animation: wavePulse 1.8s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+    }
+  </style>
+
+  <!-- Background Canvas -->
+  <rect width="900" height="360" rx="16" fill="url(#bg-grad)" stroke="#374151" stroke-width="1.5"/>
+
+  <!-- Subtle Grid Pattern Background -->
+  <g opacity="0.07" stroke="#9ca3af" stroke-width="0.5">
+    <path d="M0 40 H900 M0 80 H900 M0 120 H900 M0 160 H900 M0 200 H900 M0 240 H900 M0 280 H900 M0 320 H900" />
+    <path d="M60 0 V360 M120 0 V360 M180 0 V360 M240 0 V360 M300 0 V360 M360 0 V360 M420 0 V360 M480 0 V360 M540 0 V360 M600 0 V360 M660 0 V360 M720 0 V360 M780 0 V360 M840 0 V360" />
+  </g>
+
+  <!-- Header Banner Title -->
+  <text x="450" y="32" font-family="system-ui, -apple-system, sans-serif" font-weight="800" font-size="16" fill="#f3f4f6" text-anchor="middle" letter-spacing="2.5">
+    RAILWAY FOMO ESP32 — REAL-TIME EDGE AI INSPECTION PIPELINE
+  </text>
+  <line x1="200" y1="42" x2="700" y2="42" stroke="#374151" stroke-width="1"/>
+
+  <!-- CARD 1: Image Capture & Scanning Laser -->
+  <g transform="translate(30, 60)">
+    <rect width="180" height="235" rx="12" fill="url(#card-grad)" stroke="#3b82f6" stroke-width="1.5"/>
+    <text x="90" y="24" font-family="sans-serif" font-weight="700" font-size="12" fill="#60a5fa" text-anchor="middle">1. RAIL CAPTURE (96×96)</text>
+    
+    <!-- Railway Rail Representation -->
+    <g transform="translate(25, 42)">
+      <rect width="130" height="130" rx="8" fill="#030712" stroke="#1f2937" stroke-width="1"/>
+      
+      <!-- Rail Steel Head Shape -->
+      <path d="M35 15 L95 15 C102 15 105 20 105 28 L98 48 C95 52 90 55 90 65 L90 95 L105 110 L25 110 L40 95 L40 65 C40 55 35 52 32 48 L25 28 C25 20 28 15 35 15 Z" fill="#1e293b" stroke="#475569" stroke-width="1.5"/>
+      
+      <!-- Rail Surface Scar Anomaly -->
+      <path d="M54 22 Q60 28 68 23 T76 27" stroke="#ef4444" stroke-width="3.5" fill="none" stroke-linecap="round" filter="url(#glow-red)"/>
+      <circle cx="65" cy="24" r="14" fill="none" stroke="#ef4444" stroke-width="1.5" class="alert-glow"/>
+
+      <!-- Animated Laser Scanning Beam -->
+      <g class="scanner-line">
+        <line x1="5" y1="5" x2="125" y2="5" stroke="#ef4444" stroke-width="2.5" filter="url(#glow-red)"/>
+        <polygon points="5,5 125,5 120,20 10,20" fill="url(#laser-grad)"/>
+      </g>
+    </g>
+
+    <text x="90" y="195" font-family="monospace" font-size="10" fill="#9ca3af" text-anchor="middle">Input: Close-Up Rail</text>
+    <text x="90" y="215" font-family="monospace" font-size="10" fill="#38bdf8" text-anchor="middle">Resolution: 96×96 RGB</text>
+  </g>
+
+  <!-- Flow Connector 1 -> 2 -->
+  <path d="M210 178 H245" stroke="#38bdf8" stroke-width="2" fill="none"/>
+  <path d="M210 178 H245" stroke="#60a5fa" stroke-width="2" fill="none" class="flow-line"/>
+
+  <!-- CARD 2: INT8 FOMO Neural Network -->
+  <g transform="translate(245, 60)">
+    <rect width="190" height="235" rx="12" fill="url(#card-grad)" stroke="#818cf8" stroke-width="1.5"/>
+    <text x="95" y="24" font-family="sans-serif" font-weight="700" font-size="12" fill="#a5b4fc" text-anchor="middle">2. INT8 FOMO CNN</text>
+    
+    <!-- Conv Net Layers Diagram -->
+    <g transform="translate(20, 48)">
+      <!-- Layer 1 -->
+      <rect x="0" y="10" width="22" height="90" rx="4" fill="#312e81" stroke="#6366f1" stroke-width="1.5"/>
+      <text x="11" y="112" font-family="sans-serif" font-size="8" fill="#c7d2fe" text-anchor="middle">C1: 16</text>
+      
+      <!-- Layer 2 -->
+      <rect x="38" y="20" width="22" height="70" rx="4" fill="#4338ca" stroke="#818cf8" stroke-width="1.5"/>
+      <text x="49" y="102" font-family="sans-serif" font-size="8" fill="#c7d2fe" text-anchor="middle">C2: 32</text>
+      
+      <!-- Layer 3 -->
+      <rect x="76" y="30" width="22" height="50" rx="4" fill="#4f46e5" stroke="#a5b4fc" stroke-width="1.5"/>
+      <text x="87" y="92" font-family="sans-serif" font-size="8" fill="#c7d2fe" text-anchor="middle">C3: 64</text>
+
+      <!-- Layer 4 1x1 -->
+      <rect x="114" y="40" width="22" height="30" rx="4" fill="#6366f1" stroke="#c7d2fe" stroke-width="1.5" filter="url(#glow-cyan)"/>
+      <text x="125" y="82" font-family="sans-serif" font-size="8" fill="#38bdf8" text-anchor="middle">1x1 Logit</text>
+
+      <!-- Inter-layer Feature Connections -->
+      <path d="M22 30 L38 35 M22 80 L38 75" stroke="#818cf8" stroke-width="1" opacity="0.6"/>
+      <path d="M60 40 L76 43 M60 70 L76 67" stroke="#a5b4fc" stroke-width="1" opacity="0.6"/>
+      <path d="M98 48 L114 48 M98 62 L114 62" stroke="#c7d2fe" stroke-width="1" opacity="0.6"/>
+    </g>
+
+    <text x="95" y="190" font-family="monospace" font-size="10" fill="#9ca3af" text-anchor="middle">DedicatedScarBinaryCNN</text>
+    <text x="95" y="208" font-family="monospace" font-size="10" fill="#a855f7" text-anchor="middle">Quantization: INT8 (11.8 KB)</text>
+    <text x="95" y="224" font-family="monospace" font-size="9" fill="#6b7280" text-anchor="middle">Tensor Arena: ~96 KB</text>
+  </g>
+
+  <!-- Flow Connector 2 -> 3 -->
+  <path d="M435 178 H470" stroke="#818cf8" stroke-width="2" fill="none"/>
+  <path d="M435 178 H470" stroke="#a5b4fc" stroke-width="2" fill="none" class="flow-line"/>
+
+  <!-- CARD 3: 12x12 Spatial Grid -->
+  <g transform="translate(470, 60)">
+    <rect width="190" height="235" rx="12" fill="url(#card-grad)" stroke="#c084fc" stroke-width="1.5"/>
+    <text x="95" y="24" font-family="sans-serif" font-weight="700" font-size="12" fill="#e9d5ff" text-anchor="middle">3. 12×12 SPATIAL GRID</text>
+    
+    <!-- 12x12 Grid Visualization -->
+    <g transform="translate(30, 42)">
+      <rect width="130" height="130" rx="6" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+      
+      <!-- Grid Mesh Lines (12x12) -->
+      <g stroke="#1e293b" stroke-width="0.8">
+        <path d="M10.8 0 V130 M21.6 0 V130 M32.4 0 V130 M43.2 0 V130 M54 0 V130 M64.8 0 V130 M75.6 0 V130 M86.4 0 V130 M97.2 0 V130 M108 0 V130 M118.8 0 V130" />
+        <path d="M0 10.8 H130 M0 21.6 H130 M0 32.4 H130 M0 43.2 H130 M0 54 H130 M0 64.8 H130 M0 75.6 H130 M0 86.4 H130 M0 97.2 H130 M0 108 H130 M0 118.8 H130" />
+      </g>
+
+      <!-- Active Hotspot Activation Cell (3, 7) -->
+      <rect x="75.6" y="32.4" width="10.8" height="10.8" fill="#ef4444" fill-opacity="0.6"/>
+      <rect x="86.4" y="32.4" width="10.8" height="10.8" fill="#ef4444" fill-opacity="0.4"/>
+      <rect x="64.8" y="32.4" width="10.8" height="10.8" fill="#ef4444" fill-opacity="0.4"/>
+      
+      <!-- Pulsing Target Ring at Cell (3,7) -->
+      <circle cx="81" cy="37.8" r="14" fill="none" stroke="#ef4444" stroke-width="1.5" class="ripple"/>
+      <circle cx="81" cy="37.8" r="6" fill="#ef4444" stroke="#ffffff" stroke-width="2" class="hotspot" filter="url(#glow-red)"/>
+    </g>
+
+    <text x="95" y="190" font-family="monospace" font-size="10" fill="#9ca3af" text-anchor="middle">Peak Cell: Grid (3, 7)</text>
+    <text x="95" y="208" font-family="monospace" font-weight="700" font-size="11" fill="#ef4444" text-anchor="middle">Prob: 0.9983 (99.83%)</text>
+    <text x="95" y="224" font-family="monospace" font-size="9" fill="#6b7280" text-anchor="middle">Detected Cells: 26</text>
+  </g>
+
+  <!-- Flow Connector 3 -> 4 -->
+  <path d="M660 178 H695" stroke="#c084fc" stroke-width="2" fill="none"/>
+  <path d="M660 178 H695" stroke="#e9d5ff" stroke-width="2" fill="none" class="flow-line"/>
+
+  <!-- CARD 4: Decision & Alert Output -->
+  <g transform="translate(695, 60)">
+    <rect width="175" height="235" rx="12" fill="url(#card-grad)" stroke="#ef4444" stroke-width="1.5" filter="url(#glow-red)"/>
+    <text x="87" y="24" font-family="sans-serif" font-weight="700" font-size="12" fill="#fca5a5" text-anchor="middle">4. DECISION ALERT</text>
+
+    <!-- Alert Box Container -->
+    <g transform="translate(15, 45)">
+      <rect width="145" height="110" rx="8" fill="#450a0a" stroke="#ef4444" stroke-width="1.5"/>
+      
+      <!-- Warning Icon -->
+      <g transform="translate(72, 35)">
+        <polygon points="0,-18 16,14 -16,14" fill="#ef4444" class="alert-glow"/>
+        <text x="0" y="9" font-family="sans-serif" font-weight="900" font-size="12" fill="#ffffff" text-anchor="middle">!</text>
+      </g>
+
+      <text x="72" y="72" font-family="sans-serif" font-weight="800" font-size="11" fill="#fecaca" text-anchor="middle">SCAR DETECTED</text>
+      <text x="72" y="90" font-family="monospace" font-size="9" fill="#f87171" text-anchor="middle">τ ≥ 0.90 Threshold</text>
+    </g>
+
+    <text x="87" y="185" font-family="monospace" font-size="10" fill="#9ca3af" text-anchor="middle">ESP32 Status</text>
+    <text x="87" y="205" font-family="monospace" font-weight="700" font-size="10" fill="#10b981" text-anchor="middle">AP: 192.168.4.1</text>
+    <text x="87" y="222" font-family="monospace" font-size="9" fill="#6b7280" text-anchor="middle">Offline On-Device AI</text>
+  </g>
+
+  <!-- Bottom Visual Footer Status Bar -->
+  <rect x="30" y="308" width="840" height="28" rx="6" fill="#111827" stroke="#1f2937" stroke-width="1"/>
+  <circle cx="50" cy="322" r="4" fill="#10b981" class="alert-glow"/>
+  <text x="62" y="326" font-family="monospace" font-size="10" fill="#9ca3af">System Status: Edge Inference Active</text>
+  <text x="450" y="326" font-family="monospace" font-size="10" fill="#60a5fa" text-anchor="middle">FP32: 24.5KB → INT8: 11.8KB (-52%)</text>
+  <text x="850" y="326" font-family="monospace" font-size="10" fill="#a855f7" text-anchor="end">FOMO Stride: 8 (12×12 Grid)</text>
+</svg>
