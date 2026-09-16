@@ -1,0 +1,291 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradients -->
+    <linearGradient id="bg-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#070a14" />
+      <stop offset="50%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#050811" />
+    </linearGradient>
+
+    <!-- Node Card Gradients -->
+    <linearGradient id="card-blue" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" stop-opacity="0.9" />
+      <stop offset="100%" stop-color="#0f172a" stop-opacity="0.95" />
+    </linearGradient>
+
+    <linearGradient id="card-purple" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#2e1065" stop-opacity="0.8" />
+      <stop offset="100%" stop-color="#0f172a" stop-opacity="0.95" />
+    </linearGradient>
+
+    <linearGradient id="card-alert" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#450a0a" stop-opacity="0.9" />
+      <stop offset="100%" stop-color="#180202" stop-opacity="0.95" />
+    </linearGradient>
+
+    <!-- Laser & Particle Gradients -->
+    <linearGradient id="laser-beam-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ef4444" stop-opacity="0" />
+      <stop offset="50%" stop-color="#ef4444" stop-opacity="0.9" />
+      <stop offset="100%" stop-color="#ef4444" stop-opacity="0" />
+    </linearGradient>
+
+    <!-- Neon Filters -->
+    <filter id="glow-blue" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="5" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+    <filter id="glow-indigo" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="5" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+    <filter id="glow-red" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="7" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <style>
+    /* Keyframe Animations */
+    @keyframes moveParticles {
+      0% { stroke-dashoffset: 60; }
+      100% { stroke-dashoffset: 0; }
+    }
+    @keyframes laserSweep {
+      0% { transform: translateY(0px); opacity: 0.2; }
+      50% { transform: translateY(80px); opacity: 0.9; }
+      100% { transform: translateY(0px); opacity: 0.2; }
+    }
+    @keyframes nodePulse {
+      0%, 100% { stroke-opacity: 0.4; stroke-width: 1.5px; }
+      50% { stroke-opacity: 1; stroke-width: 2.5px; }
+    }
+    @keyframes activeStepGlow {
+      0%, 100% { opacity: 0.3; }
+      20% { opacity: 1; filter: drop-shadow(0 0 8px #38bdf8); }
+      40% { opacity: 0.3; }
+    }
+    @keyframes rippleExpand {
+      0% { r: 8px; opacity: 0.9; }
+      100% { r: 26px; opacity: 0; }
+    }
+
+    /* Class Applications */
+    .flow-dash {
+      stroke-dasharray: 8 8;
+      animation: moveParticles 1s linear infinite;
+    }
+    .laser-line {
+      animation: laserSweep 3s ease-in-out infinite;
+    }
+    .card-border-pulse {
+      animation: nodePulse 2.5s ease-in-out infinite;
+    }
+    .ripple-ring {
+      animation: rippleExpand 1.6s cubic-bezier(0.2, 0.8, 0.2, 1) infinite;
+    }
+    
+    /* Sequential Step Illuminations */
+    .step-1 { animation: activeStepGlow 6s infinite 0s; }
+    .step-2 { animation: activeStepGlow 6s infinite 1.2s; }
+    .step-3 { animation: activeStepGlow 6s infinite 2.4s; }
+    .step-4 { animation: activeStepGlow 6s infinite 3.6s; }
+    .step-5 { animation: activeStepGlow 6s infinite 4.8s; }
+  </style>
+
+  <!-- Canvas Base -->
+  <rect width="960" height="540" rx="16" fill="url(#bg-gradient)" stroke="#1e293b" stroke-width="2"/>
+
+  <!-- Top Title Banner -->
+  <g transform="translate(480, 36)">
+    <text font-family="system-ui, -apple-system, sans-serif" font-weight="900" font-size="18" fill="#f8fafc" text-anchor="middle" letter-spacing="3">
+      END-TO-END FOMO EDGE AI PROCESSING WORKFLOW
+    </text>
+    <text y="18" font-family="monospace" font-size="11" fill="#38bdf8" text-anchor="middle">
+      Real-Time On-Device Pipeline: Image Capture → INT8 Quantization → 12×12 Spatial Grid → Anomaly Alert
+    </text>
+  </g>
+
+  <!-- Pipeline Flow Backbone Line -->
+  <path d="M 120 180 H 840" stroke="#334155" stroke-width="4" stroke-linecap="round"/>
+  <path d="M 120 180 H 840" stroke="#38bdf8" stroke-width="3" fill="none" class="flow-dash"/>
+
+  <!-- ================= STAGE 1: IMAGE CAPTURE ================= -->
+  <g transform="translate(40, 100)" class="step-1">
+    <rect width="160" height="280" rx="12" fill="url(#card-blue)" stroke="#38bdf8" stroke-width="1.5" class="card-border-pulse"/>
+    <rect x="12" y="12" width="136" height="24" rx="6" fill="#0284c7" fill-opacity="0.2"/>
+    <text x="80" y="28" font-family="sans-serif" font-weight="800" font-size="11" fill="#7dd3fc" text-anchor="middle">1. RAIL CAPTURE</text>
+
+    <!-- Rail Graphic Container -->
+    <g transform="translate(20, 48)">
+      <rect width="120" height="110" rx="6" fill="#020617" stroke="#1e293b" stroke-width="1"/>
+      <!-- Steel Rail Contour -->
+      <path d="M30 12 L90 12 C96 12 98 16 98 22 L92 40 C90 44 85 46 85 55 L85 80 L98 95 L22 95 L35 80 L35 55 C35 46 30 44 28 40 L22 22 C22 16 24 12 30 12 Z" fill="#1e293b" stroke="#475569" stroke-width="1"/>
+      <!-- Scar Anomaly -->
+      <path d="M48 18 Q54 24 62 20 T70 23" stroke="#ef4444" stroke-width="3" fill="none" stroke-linecap="round" filter="url(#glow-red)"/>
+      <!-- Laser Sweeper -->
+      <g class="laser-line">
+        <line x1="5" y1="5" x2="115" y2="5" stroke="#ef4444" stroke-width="2" filter="url(#glow-red)"/>
+        <rect x="5" y="5" width="110" height="12" fill="url(#laser-beam-grad)"/>
+      </g>
+    </g>
+
+    <!-- Stage Specs -->
+    <text x="80" y="175" font-family="monospace" font-size="10" fill="#94a3b8" text-anchor="middle">Close-Up Rail Head</text>
+    <text x="80" y="192" font-family="monospace" font-size="10" fill="#38bdf8" text-anchor="middle">Resize: 96×96 RGB</text>
+    <text x="80" y="209" font-family="monospace" font-size="9" fill="#64748b" text-anchor="middle">NCHW Format</text>
+    <text x="80" y="226" font-family="monospace" font-size="9" fill="#64748b" text-anchor="middle">Scale: [0.0, 1.0]</text>
+  </g>
+
+  <!-- Connection Particle 1 -> 2 -->
+  <circle cx="220" cy="180" r="4" fill="#38bdf8" filter="url(#glow-blue)"/>
+
+  <!-- ================= STAGE 2: INT8 QUANTIZATION ================= -->
+  <g transform="translate(230, 100)" class="step-2">
+    <rect width="160" height="280" rx="12" fill="url(#card-purple)" stroke="#818cf8" stroke-width="1.5" class="card-border-pulse"/>
+    <rect x="12" y="12" width="136" height="24" rx="6" fill="#4338ca" fill-opacity="0.3"/>
+    <text x="80" y="28" font-family="sans-serif" font-weight="800" font-size="11" fill="#c7d2fe" text-anchor="middle">2. INT8 QUANTIZER</text>
+
+    <!-- Formula Visual Box -->
+    <g transform="translate(15, 48)">
+      <rect width="130" height="110" rx="6" fill="#0f172a" stroke="#312e81" stroke-width="1"/>
+      <text x="65" y="28" font-family="monospace" font-weight="700" font-size="10" fill="#a5b4fc" text-anchor="middle">Static wi8_ai8</text>
+      <text x="65" y="48" font-family="monospace" font-size="9" fill="#818cf8" text-anchor="middle">q = round(x / s) + z</text>
+
+      <rect x="10" y="62" width="110" height="38" rx="4" fill="#1e1b4b"/>
+      <text x="65" y="78" font-family="monospace" font-size="8.5" fill="#38bdf8" text-anchor="middle">Scale: 0.00392157</text>
+      <text x="65" y="92" font-family="monospace" font-size="8.5" fill="#38bdf8" text-anchor="middle">Zero Point: -128</text>
+    </g>
+
+    <text x="80" y="175" font-family="monospace" font-size="10" fill="#94a3b8" text-anchor="middle">Input Tensor INT8</text>
+    <text x="80" y="192" font-family="monospace" font-size="10" fill="#c084fc" text-anchor="middle">1×3×96×96 Matrix</text>
+    <text x="80" y="209" font-family="monospace" font-size="9" fill="#64748b" text-anchor="middle">Min-Max Uniform</text>
+    <text x="80" y="226" font-family="monospace" font-size="9" fill="#64748b" text-anchor="middle">LiteRT Exporter</text>
+  </g>
+
+  <!-- Connection Particle 2 -> 3 -->
+  <circle cx="410" cy="180" r="4" fill="#818cf8" filter="url(#glow-indigo)"/>
+
+  <!-- ================= STAGE 3: FOMO CNN ENGINE ================= -->
+  <g transform="translate(420, 100)" class="step-3">
+    <rect width="160" height="280" rx="12" fill="url(#card-purple)" stroke="#c084fc" stroke-width="1.5" class="card-border-pulse"/>
+    <rect x="12" y="12" width="136" height="24" rx="6" fill="#6b21a8" fill-opacity="0.4"/>
+    <text x="80" y="28" font-family="sans-serif" font-weight="800" font-size="11" fill="#e9d5ff" text-anchor="middle">3. FOMO CNN</text>
+
+    <!-- Layer Stack Graphics -->
+    <g transform="translate(15, 48)">
+      <rect width="130" height="110" rx="6" fill="#020617" stroke="#3b0764" stroke-width="1"/>
+      
+      <!-- Conv Layers -->
+      <rect x="10" y="12" width="110" height="18" rx="3" fill="#3b0764" stroke="#820ad1" stroke-width="1"/>
+      <text x="65" y="24" font-family="monospace" font-size="8.5" fill="#e9d5ff" text-anchor="middle">Conv1: 3→16 (48×48)</text>
+
+      <rect x="10" y="34" width="110" height="18" rx="3" fill="#581c87" stroke="#a855f7" stroke-width="1"/>
+      <text x="65" y="46" font-family="monospace" font-size="8.5" fill="#e9d5ff" text-anchor="middle">Conv2: 16→32 (24×24)</text>
+
+      <rect x="10" y="56" width="110" height="18" rx="3" fill="#6b21a8" stroke="#c084fc" stroke-width="1"/>
+      <text x="65" y="68" font-family="monospace" font-size="8.5" fill="#e9d5ff" text-anchor="middle">Conv3: 32→64 (12×12)</text>
+
+      <rect x="10" y="78" width="110" height="22" rx="3" fill="#0284c7" stroke="#38bdf8" stroke-width="1.5" filter="url(#glow-blue)"/>
+      <text x="65" y="93" font-family="monospace" font-weight="700" font-size="9" fill="#ffffff" text-anchor="middle">1×1 Conv → Logits</text>
+    </g>
+
+    <text x="80" y="175" font-family="monospace" font-size="10" fill="#94a3b8" text-anchor="middle">DedicatedScarBinary</text>
+    <text x="80" y="192" font-family="monospace" font-size="10" fill="#a855f7" text-anchor="middle">Model Size: 11.8 KB</text>
+    <text x="80" y="209" font-family="monospace" font-size="9" fill="#64748b" text-anchor="middle">Stride = 8 (2³)</text>
+    <text x="80" y="226" font-family="monospace" font-size="9" fill="#64748b" text-anchor="middle">Tensor Arena ~96KB</text>
+  </g>
+
+  <!-- Connection Particle 3 -> 4 -->
+  <circle cx="600" cy="180" r="4" fill="#c084fc" filter="url(#glow-indigo)"/>
+
+  <!-- ================= STAGE 4: 12x12 GRID & DEQUANT ================= -->
+  <g transform="translate(610, 100)" class="step-4">
+    <rect width="160" height="280" rx="12" fill="url(#card-blue)" stroke="#38bdf8" stroke-width="1.5" class="card-border-pulse"/>
+    <rect x="12" y="12" width="136" height="24" rx="6" fill="#0369a1" fill-opacity="0.3"/>
+    <text x="80" y="28" font-family="sans-serif" font-weight="800" font-size="11" fill="#bae6fd" text-anchor="middle">4. 12×12 GRID &amp; SIGMOID</text>
+
+    <!-- Grid Representation -->
+    <g transform="translate(25, 48)">
+      <rect width="110" height="110" rx="6" fill="#090d16" stroke="#1e293b" stroke-width="1"/>
+      
+      <!-- 12x12 Mesh -->
+      <g stroke="#1e293b" stroke-width="0.6">
+        <path d="M9.1 0 V110 M18.3 0 V110 M27.5 0 V110 M36.6 0 V110 M45.8 0 V110 M55 0 V110 M64.1 0 V110 M73.3 0 V110 M82.5 0 V110 M91.6 0 V110 M100.8 0 V110"/>
+        <path d="M0 9.1 H110 M0 18.3 H110 M0 27.5 H110 M0 36.6 H110 M0 45.8 H110 M0 55 H110 M0 64.1 H110 M0 73.3 H110 M0 82.5 H110 M0 91.6 H110 M0 100.8 H110"/>
+      </g>
+
+      <!-- Hotspot Cell (3,7) -->
+      <rect x="64.1" y="27.5" width="9.1" height="9.1" fill="#ef4444"/>
+      <circle cx="68.6" cy="32" r="10" fill="none" stroke="#ef4444" stroke-width="1.5" class="ripple-ring"/>
+      <circle cx="68.6" cy="32" r="4" fill="#ef4444" filter="url(#glow-red)"/>
+    </g>
+
+    <text x="80" y="175" font-family="monospace" font-size="10" fill="#94a3b8" text-anchor="middle">Dequantize Logits</text>
+    <text x="80" y="192" font-family="monospace" font-weight="700" font-size="10" fill="#ef4444" text-anchor="middle">Peak Cell: (3, 7)</text>
+    <text x="80" y="209" font-family="monospace" font-size="9" fill="#38bdf8" text-anchor="middle">Prob = 0.9983</text>
+    <text x="80" y="226" font-family="monospace" font-size="9" fill="#64748b" text-anchor="middle">144 Spatial Cells</text>
+  </g>
+
+  <!-- Connection Particle 4 -> 5 -->
+  <circle cx="790" cy="180" r="4" fill="#ef4444" filter="url(#glow-red)"/>
+
+  <!-- ================= STAGE 5: ALERT DECISION ================= -->
+  <g transform="translate(800, 100)" class="step-5">
+    <rect width="125" height="280" rx="12" fill="url(#card-alert)" stroke="#ef4444" stroke-width="2" class="card-border-pulse" filter="url(#glow-red)"/>
+    <rect x="8" y="12" width="109" height="24" rx="6" fill="#991b1b"/>
+    <text x="62" y="28" font-family="sans-serif" font-weight="800" font-size="10" fill="#fecaca" text-anchor="middle">5. ALERT</text>
+
+    <!-- Alert Status Box -->
+    <g transform="translate(10, 52)">
+      <rect width="105" height="100" rx="6" fill="#260404" stroke="#b91c1c" stroke-width="1.5"/>
+      <polygon points="52.5,15 67.5,42 37.5,42" fill="#ef4444"/>
+      <text x="52.5" y="37" font-family="sans-serif" font-weight="900" font-size="11" fill="#ffffff" text-anchor="middle">!</text>
+
+      <text x="52.5" y="62" font-family="sans-serif" font-weight="800" font-size="9" fill="#fca5a5" text-anchor="middle">SCAR DETECTED</text>
+      <text x="52.5" y="80" font-family="monospace" font-size="8" fill="#f87171" text-anchor="middle">τ ≥ 0.90</text>
+    </g>
+
+    <text x="62" y="175" font-family="monospace" font-size="9" fill="#94a3b8" text-anchor="middle">ESP32 Alert</text>
+    <text x="62" y="192" font-family="monospace" font-weight="700" font-size="9" fill="#10b981" text-anchor="middle">AP Dashboard</text>
+    <text x="62" y="209" font-family="monospace" font-size="8" fill="#64748b" text-anchor="middle">192.168.4.1</text>
+    <text x="62" y="226" font-family="monospace" font-size="8" fill="#64748b" text-anchor="middle">Offline Alert</text>
+  </g>
+
+  <!-- Bottom Timeline & Metrics Bar -->
+  <g transform="translate(40, 410)">
+    <rect width="885" height="95" rx="10" fill="#090d16" stroke="#1e293b" stroke-width="1.5"/>
+    
+    <!-- Step Indicators -->
+    <g font-family="monospace" font-size="10">
+      <circle cx="80" cy="28" r="10" fill="#0284c7"/><text x="80" y="31" fill="#fff" text-anchor="middle" font-weight="bold">1</text>
+      <text x="80" y="52" fill="#94a3b8" text-anchor="middle">96×96 RGB</text>
+
+      <path d="M 120 28 H 200" stroke="#334155" stroke-width="2"/>
+
+      <circle cx="240" cy="28" r="10" fill="#4338ca"/><text x="240" y="31" fill="#fff" text-anchor="middle" font-weight="bold">2</text>
+      <text x="240" y="52" fill="#94a3b8" text-anchor="middle">INT8 Quant</text>
+
+      <path d="M 280 28 H 360" stroke="#334155" stroke-width="2"/>
+
+      <circle cx="400" cy="28" r="10" fill="#6b21a8"/><text x="400" y="31" fill="#fff" text-anchor="middle" font-weight="bold">3</text>
+      <text x="400" y="52" fill="#94a3b8" text-anchor="middle">FOMO Conv</text>
+
+      <path d="M 440 28 H 520" stroke="#334155" stroke-width="2"/>
+
+      <circle cx="560" cy="28" r="10" fill="#0369a1"/><text x="560" y="31" fill="#fff" text-anchor="middle" font-weight="bold">4</text>
+      <text x="560" y="52" fill="#94a3b8" text-anchor="middle">12×12 Grid</text>
+
+      <path d="M 600 28 H 680" stroke="#334155" stroke-width="2"/>
+
+      <circle cx="720" cy="28" r="10" fill="#b91c1c"/><text x="720" y="31" fill="#fff" text-anchor="middle" font-weight="bold">5</text>
+      <text x="720" y="52" fill="#fca5a5" text-anchor="middle">Scar Output</text>
+    </g>
+
+    <!-- Key Performance Summary -->
+    <line x1="30" y1="68" x2="855" y2="68" stroke="#1e293b" stroke-width="1"/>
+    <text x="50" y="84" font-family="monospace" font-size="10" fill="#38bdf8">Model: FP32 24.5KB → INT8 11.8KB (-52%)</text>
+    <text x="440" y="84" font-family="monospace" font-size="10" fill="#a855f7" text-anchor="middle">Tensor Arena RAM: ~96 KB</text>
+    <text x="830" y="84" font-family="monospace" font-size="10" fill="#10b981" text-anchor="end">Inference: 1.2ms (GPU) / ~8.5ms (CPU)</text>
+  </g>
+</svg>

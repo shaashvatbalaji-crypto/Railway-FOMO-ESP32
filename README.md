@@ -181,36 +181,26 @@ flowchart TD
 
 ## 5. End-to-End Processing Workflow
 
-```mermaid
-sequenceDiagram
-    autonumber
-    participant Input as Image Input
-    participant Prep as Preprocessing
-    participant Quant as Quantizer
-    participant CNN as FOMO Model
-    participant Post as Post-Processor
-    participant Output as Inspection Output
+<br/>
 
-    Input->>Prep: Supply rail surface image
-    Prep->>Prep: Resize image to 96×96 RGB
-    Prep->>Prep: Reorder dimensions: HWC (96,96,3) → NCHW (1,3,96,96)
-    Prep->>Quant: Pass normalized float matrix [0.0, 1.0]
-    Quant->>Quant: Apply INT8 transformation: q = round(x / 0.00392157) - 128
-    Quant->>CNN: Feed INT8 input tensor to Tensor Arena
-    CNN->>CNN: Layer 1: Conv2D(3->16, 3x3, s=2) + BN + ReLU (48x48)
-    CNN->>CNN: Layer 2: Conv2D(16->32, 3x3, s=2) + BN + ReLU (24x24)
-    CNN->>CNN: Layer 3: Conv2D(32->64, 3x3, s=2) + BN + ReLU (12x12)
-    CNN->>CNN: Layer 4: Conv2D(64->1, 1x1, s=1) -> Logit Map (12x12)
-    CNN->>Post: Return 12×12 INT8 raw logit tensor
-    Post->>Post: Dequantize logits: y = (raw - 24) * 0.06304283
-    Post->>Post: Apply Sigmoid activation: σ(y) = 1 / (1 + exp(-y))
-    Post->>Post: Extract max probability P_max and grid cell (X_max, Y_max)
-    alt P_max >= 0.90
-        Post->>Output: Trigger SCAR DETECTED (Report X, Y and Cell Count)
-    else P_max < 0.90
-        Post->>Output: Trigger NORMAL TRACK (Surface Clear)
-    end
-```
+<div align="center">
+  <img src="assets/fomo_workflow_animation.svg" alt="End-to-End FOMO Edge AI Processing Workflow Animation" width="100%" />
+</div>
+
+<br/>
+
+### Execution Pipeline Sequence
+
+| Step | Processing Phase | Action & Mathematical Operation | Data Transformation / Tensor Output |
+| :---: | :--- | :--- | :--- |
+| **1** | **Image Acquisition** | Supply close-up rail surface image | Raw PNG/JPEG Image Matrix |
+| **2** | **Preprocessing** | Resample resolution & normalize scale | $96 \times 96$ RGB $[0.0, 1.0]$, NCHW format $(1, 3, 96, 96)$ |
+| **3** | **INT8 Quantization** | $q = \text{round}\left(\frac{x}{0.00392157}\right) - 128$ | INT8 Input Tensor to MCU Tensor Arena |
+| **4** | **FOMO CNN Inference**| Execute 3× Strided Conv2D + BN + ReLU + $1\times 1$ Conv | Output Logit Feature Map $1 \times 1 \times 12 \times 12$ |
+| **5** | **Logit Dequantization**| $y = (\text{raw} - 24) \times 0.06304283$ | Dequantized Logit Values |
+| **6** | **Sigmoid Activation** | $P(i, j) = \frac{1}{1 + e^{-y(i, j)}}$ | $12 \times 12$ Spatial Probability Matrix |
+| **7** | **Grid Extraction** | Extract $P_{\text{max}} = \max P(i,j)$ & Argmax Cell $(X, Y)$ | Peak Cell Response Localization |
+| **8** | **Threshold Evaluation**| Compare $P_{\text{max}} \ge \tau$ ($\tau = 0.90$) | 🔴 **SCAR DETECTED** or 🟢 **NORMAL TRACK** |
 
 ---
 
