@@ -206,28 +206,38 @@ flowchart TD
 
 ## 6. FOMO Architecture & Spatial Localization
 
-### What is FOMO?
-**FOMO (Faster Objects More Objects)** is an ultra-lightweight object detection formulation optimized for microcontrollers. Unlike conventional detectors (YOLO, SSD) that use multi-scale feature pyramids, bounding box regression anchors, and Non-Maximum Suppression (NMS), FOMO treats object detection as a **spatial grid of per-cell classifications**.
+<br/>
+
+<div align="center">
+  <img src="assets/fomo_architecture_animation.svg" alt="FOMO Architecture & Spatial Localization Animation" width="100%" />
+</div>
+
+<br/>
+
+### What is FOMO? (Faster Objects More Objects)
+**FOMO** is an extreme Edge AI object detection framework designed by Edge Impulse to run object detection on low-power microcontrollers with tight SRAM limits ($<320\text{ KB}$).
 
 ```
-Standard Object Detection (Heavy)             FOMO Grid Detection (Lightweight)
-┌────────────────────────────────┐            ┌───┬───┬───┬───┬───┬───┐
-│        [ Bounding Box ]        │            │ 0 │ 0 │ 0 │ 0 │ 0 │ 0 │
-│        (x, y, w, h, c)         │    VS      ├───┼───┼───┼───┼───┼───┤
-│ Requires NMS + Anchor Decoding │            │ 0 │.99│.98│ 0 │ 0 │ 0 │  ◄─ 12×12 Grid Cells
-│ High RAM & Compute Overhead    │            ├───┼───┼───┼───┼───┼───┤
-└────────────────────────────────┘            │ 0 │ 0 │ 0 │ 0 │ 0 │ 0 │
-                                              └───┴───┴───┴───┴───┴───┘
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                          KEY ARCHITECTURAL DIFFERENCES                      │
+├───────────────────────────────┬─────────────────────────────────────────────┤
+│ Heavy Detector (YOLO / SSD)   │ Ultra-Lightweight FOMO (This Project)       │
+├───────────────────────────────┼─────────────────────────────────────────────┤
+│ • Bounding box regression     │ • Per-cell spatial probability grid         │
+│ • Requires anchor boxes & NMS │ • Zero anchor boxes, zero NMS overhead      │
+│ • Needs > 5 MB RAM & >10MB Flash│ • Runs in ~96 KB RAM & 11.8 KB INT8 Flash   │
+│ • Too heavy for microcontrollers│ • 100% optimized for ESP32 DevKit V1      │
+└───────────────────────────────┴─────────────────────────────────────────────┘
 ```
 
-### Spatial Grid Math
+### Spatial Grid Reduction Math
 The model input resolution is $96 \times 96$ pixels. Across three strided convolution layers (each with stride $= 2$), the spatial receptive field scales down by a factor of $2^3 = 8$:
 
-$$\text{Output Resolution} = \frac{96}{8} = 12 \times 12 \text{ cells}$$
+$$\text{Output Spatial Resolution} = \frac{96\text{ px}}{8\text{ stride}} = 12 \times 12\text{ grid cells}$$
 
-Each individual cell in the $12 \times 12$ output grid corresponds to an **$8 \times 8$ pixel patch** in the original input image:
+Each individual cell in the $12 \times 12$ output matrix directly maps to a **$8 \times 8$ pixel patch** on the original input rail image:
 - **Total spatial cells:** $12 \times 12 = 144$ cells
-- **Spatial cell indices:** $X \in [0, 11], Y \in [0, 11]$
+- **Spatial grid indices:** $X \in [0, 11], Y \in [0, 11]$
 
 ---
 

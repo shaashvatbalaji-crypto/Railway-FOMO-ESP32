@@ -1,0 +1,204 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradients -->
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#070a14" />
+      <stop offset="50%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#050811" />
+    </linearGradient>
+
+    <!-- Card Gradients -->
+    <linearGradient id="card-heavy" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#450a0a" stop-opacity="0.6" />
+      <stop offset="100%" stop-color="#0f172a" stop-opacity="0.95" />
+    </linearGradient>
+
+    <linearGradient id="card-fomo" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#064e3b" stop-opacity="0.6" />
+      <stop offset="100%" stop-color="#0f172a" stop-opacity="0.95" />
+    </linearGradient>
+
+    <!-- Glowing Filters -->
+    <filter id="glow-red-fomo" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="5" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+    <filter id="glow-green-fomo" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="5" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <style>
+    /* Keyframe Animations */
+    @keyframes pulseBBox {
+      0%, 100% { stroke-opacity: 0.4; stroke-dashoffset: 0; }
+      50% { stroke-opacity: 1; stroke-dashoffset: 20; }
+    }
+    @keyframes pulseGridCell {
+      0%, 100% { fill-opacity: 0.3; transform: scale(1); }
+      50% { fill-opacity: 0.95; transform: scale(1.05); }
+    }
+    @keyframes scanGridBeam {
+      0% { transform: translateY(0px); opacity: 0.2; }
+      50% { transform: translateY(110px); opacity: 0.9; }
+      100% { transform: translateY(0px); opacity: 0.2; }
+    }
+    @keyframes floatArrow {
+      0%, 100% { transform: translateX(0px); }
+      50% { transform: translateX(6px); }
+    }
+
+    /* Animation Classes */
+    .bbox-anim {
+      stroke-dasharray: 6 4;
+      animation: pulseBBox 2s linear infinite;
+    }
+    .cell-pulse {
+      animation: pulseGridCell 1.3s infinite ease-in-out;
+      transform-origin: center;
+    }
+    .grid-laser {
+      animation: scanGridBeam 3s ease-in-out infinite;
+    }
+    .arrow-anim {
+      animation: floatArrow 1.5s ease-in-out infinite;
+    }
+  </style>
+
+  <!-- Background Base -->
+  <rect width="960" height="480" rx="16" fill="url(#bg-grad)" stroke="#1e293b" stroke-width="2"/>
+
+  <!-- Title Header -->
+  <g transform="translate(480, 36)">
+    <text font-family="system-ui, -apple-system, sans-serif" font-weight="900" font-size="18" fill="#f8fafc" text-anchor="middle" letter-spacing="2.5">
+      WHY FOMO? — HEAVY OBJECT DETECTION VS. LIGHTWEIGHT FOMO GRID
+    </text>
+    <text y="18" font-family="monospace" font-size="11" fill="#38bdf8" text-anchor="middle">
+      Replacing Heavy Bounding Box Anchor Regressions with a 12×12 Spatial Probability Grid
+    </text>
+  </g>
+
+  <!-- ================= LEFT PANEL: HEAVY TRADITIONAL DETECTOR ================= -->
+  <g transform="translate(40, 80)">
+    <rect width="420" height="340" rx="14" fill="url(#card-heavy)" stroke="#ef4444" stroke-width="1.5"/>
+    
+    <!-- Panel Header -->
+    <rect x="16" y="16" width="388" height="32" rx="8" fill="#991b1b" fill-opacity="0.4"/>
+    <text x="210" y="37" font-family="sans-serif" font-weight="800" font-size="13" fill="#fca5a5" text-anchor="middle">
+      ❌ TRADITIONAL DETECTORS (YOLO / SSD / R-CNN)
+    </text>
+
+    <!-- Heavy Bounding Box Graphic -->
+    <g transform="translate(30, 65)">
+      <rect width="180" height="150" rx="8" fill="#030712" stroke="#334155" stroke-width="1"/>
+      
+      <!-- Rail Image Profile -->
+      <path d="M45 20 L135 20 C145 20 148 26 148 35 L140 60 C135 65 130 68 130 80 L130 120 L148 138 L32 138 L50 120 L50 80 C50 68 45 65 42 60 L35 35 C35 26 38 20 45 20 Z" fill="#1e293b" opacity="0.7"/>
+
+      <!-- Complex Heavy Bounding Box Overlays -->
+      <rect x="40" y="25" width="100" height="65" fill="none" stroke="#ef4444" stroke-width="2" class="bbox-anim"/>
+      <rect x="30" y="18" width="120" height="80" fill="none" stroke="#f59e0b" stroke-width="1" stroke-dasharray="3 3"/>
+      <rect x="50" y="30" width="85" height="50" fill="none" stroke="#a855f7" stroke-width="1" stroke-dasharray="2 2"/>
+
+      <!-- Label Box -->
+      <rect x="40" y="12" width="75" height="15" fill="#ef4444"/>
+      <text x="77.5" y="23" font-family="monospace" font-weight="bold" font-size="9" fill="#ffffff" text-anchor="middle">Scar: 98.4%</text>
+
+      <!-- Anchor Box Indicators -->
+      <circle cx="40" cy="25" r="3" fill="#ef4444"/>
+      <circle cx="140" cy="90" r="3" fill="#ef4444"/>
+    </g>
+
+    <!-- Limitations Specs Box -->
+    <g transform="translate(225, 65)">
+      <rect width="165" height="150" rx="8" fill="#180202" stroke="#7f1d1d" stroke-width="1"/>
+      <text x="82.5" y="22" font-family="sans-serif" font-weight="700" font-size="11" fill="#f87171" text-anchor="middle">Heavy Bottlenecks</text>
+      
+      <text x="12" y="44" font-family="monospace" font-size="9.5" fill="#fca5a5">• Bounding Box (x,y,w,h)</text>
+      <text x="12" y="62" font-family="monospace" font-size="9.5" fill="#fca5a5">• Multi-Anchor Boxes</text>
+      <text x="12" y="80" font-family="monospace" font-size="9.5" fill="#fca5a5">• NMS Sorting Layer</text>
+      <text x="12" y="98" font-family="monospace" font-size="9.5" fill="#fca5a5">• RAM: &gt; 5 MB – 16 MB</text>
+      <text x="12" y="116" font-family="monospace" font-size="9.5" fill="#fca5a5">• Flash: &gt; 10 MB – 30 MB</text>
+      <text x="12" y="134" font-family="monospace" font-weight="700" font-size="9" fill="#ef4444">• Latency: High on MCU</text>
+    </g>
+
+    <!-- Bottom Status Tag -->
+    <rect x="16" y="285" width="388" height="36" rx="8" fill="#450a0a" stroke="#b91c1c" stroke-width="1"/>
+    <text x="210" y="307" font-family="sans-serif" font-weight="800" font-size="11" fill="#fecaca" text-anchor="middle">
+      🚫 TOO HEAVY FOR ESP32 SRAM (320 KB LIMIT)
+    </text>
+  </g>
+
+  <!-- VS Divider Icon in Center -->
+  <g transform="translate(480, 250)">
+    <circle cx="0" cy="0" r="22" fill="#0f172a" stroke="#38bdf8" stroke-width="2" filter="url(#glow-green-fomo)"/>
+    <text x="0" y="5" font-family="sans-serif" font-weight="900" font-size="13" fill="#38bdf8" text-anchor="middle">VS</text>
+  </g>
+
+  <!-- ================= RIGHT PANEL: ULTRA-LIGHTWEIGHT FOMO GRID ================= -->
+  <g transform="translate(500, 80)">
+    <rect width="420" height="340" rx="14" fill="url(#card-fomo)" stroke="#10b981" stroke-width="1.5" filter="url(#glow-green-fomo)"/>
+    
+    <!-- Panel Header -->
+    <rect x="16" y="16" width="388" height="32" rx="8" fill="#065f46" fill-opacity="0.5"/>
+    <text x="210" y="37" font-family="sans-serif" font-weight="800" font-size="13" fill="#a7f3d0" text-anchor="middle">
+      ✅ LIGHTWEIGHT FOMO GRID (FASTER OBJECTS MORE OBJECTS)
+    </text>
+
+    <!-- FOMO 12x12 Grid Visual Graphic -->
+    <g transform="translate(30, 65)">
+      <rect width="180" height="150" rx="8" fill="#020617" stroke="#059669" stroke-width="1"/>
+      
+      <!-- 12x12 Grid Mesh -->
+      <g stroke="#1e293b" stroke-width="0.8">
+        <path d="M15 0 V150 M30 0 V150 M45 0 V150 M60 0 V150 M75 0 V150 M90 0 V150 M105 0 V150 M120 0 V150 M135 0 V150 M150 0 V150 M165 0 V150"/>
+        <path d="M0 12.5 H180 M0 25 H180 M0 37.5 H180 M0 50 H180 M0 62.5 H180 M0 75 H180 M0 87.5 H180 M0 100 H180 M0 112.5 H180 M0 125 H180 M0 137.5 H180"/>
+      </g>
+
+      <!-- Hotspot Active Cell (3,7) -->
+      <!-- Grid Cell X=7 (approx 105px), Y=3 (approx 37.5px) -->
+      <rect x="105" y="37.5" width="15" height="12.5" fill="#ef4444" fill-opacity="0.8"/>
+      <rect x="120" y="37.5" width="15" height="12.5" fill="#ef4444" fill-opacity="0.5"/>
+      <rect x="90" y="37.5" width="15" height="12.5" fill="#ef4444" fill-opacity="0.5"/>
+
+      <!-- Pulsing Target Ring at Cell (3,7) -->
+      <circle cx="112.5" cy="43.7" r="7" fill="#ef4444" stroke="#ffffff" stroke-width="1.5" class="cell-pulse" filter="url(#glow-red-fomo)"/>
+
+      <!-- Scanning Beam overlay -->
+      <g class="grid-laser">
+        <line x1="0" y1="0" x2="180" y2="0" stroke="#10b981" stroke-width="1.5"/>
+      </g>
+    </g>
+
+    <!-- FOMO Specs Box -->
+    <g transform="translate(225, 65)">
+      <rect width="165" height="150" rx="8" fill="#022c22" stroke="#047857" stroke-width="1"/>
+      <text x="82.5" y="22" font-family="sans-serif" font-weight="700" font-size="11" fill="#6ee7b7" text-anchor="middle">FOMO Advantages</text>
+      
+      <text x="12" y="44" font-family="monospace" font-size="9.5" fill="#a7f3d0">• 12×12 Spatial Grid</text>
+      <text x="12" y="62" font-family="monospace" font-size="9.5" fill="#a7f3d0">• ZERO Bounding Boxes</text>
+      <text x="12" y="80" font-family="monospace" font-size="9.5" fill="#a7f3d0">• ZERO Anchor Overhead</text>
+      <text x="12" y="98" font-family="monospace" font-size="9.5" fill="#a7f3d0">• RAM: ~96 KB Arena</text>
+      <text x="12" y="116" font-family="monospace" font-size="9.5" fill="#a7f3d0">• Flash: 11.8 KB (INT8)</text>
+      <text x="12" y="134" font-family="monospace" font-weight="700" font-size="9" fill="#34d399">• Ultra-Fast Inference</text>
+    </g>
+
+    <!-- Bottom Status Tag -->
+    <rect x="16" y="285" width="388" height="36" rx="8" fill="#064e3b" stroke="#059669" stroke-width="1"/>
+    <text x="210" y="307" font-family="sans-serif" font-weight="800" font-size="11" fill="#ecfdf5" text-anchor="middle">
+      ⚡ 100% OPTIMIZED FOR ESP32 DEVKIT V1
+    </text>
+  </g>
+
+  <!-- Bottom Math Explanation Ribbon -->
+  <g transform="translate(40, 432)">
+    <rect width="880" height="36" rx="8" fill="#090d16" stroke="#1e293b" stroke-width="1"/>
+    <text x="20" y="22" font-family="monospace" font-size="10.5" fill="#94a3b8">
+      Spatial Reduction Math: <tspan fill="#38bdf8">96×96 Input</tspan> ÷ <tspan fill="#c084fc">8 Stride (2³ Conv)</tspan> = <tspan fill="#10b981" font-weight="bold">12×12 Grid Cells</tspan>
+    </text>
+    <text x="860" y="22" font-family="monospace" font-size="10.5" fill="#6ee7b7" text-anchor="end">
+      1 Cell = 8×8 Pixel Patch
+    </text>
+  </g>
+</svg>
